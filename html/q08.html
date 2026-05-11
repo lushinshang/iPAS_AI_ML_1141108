@@ -13,6 +13,12 @@
   --bg: #f5f7fb;
   --blue: #174ea6;
   --yellow: #ffea00;
+  --code-bg: #eef3ff;
+  --th-bg: #eaf2ff;
+  --pre-bg: #111827;
+  --pre-fg: #f8fafc;
+  --quote-border: #d97706;
+  --quote-bg: #fff7df;
 }
 * { box-sizing: border-box; }
 body {
@@ -24,6 +30,11 @@ body {
 }
 a { color: var(--blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
+a:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
 .shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
 .topbar {
   display: flex;
@@ -47,7 +58,9 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   border-radius: 8px;
   padding: 8px 12px;
   font-weight: 700;
+  transition: background 0.15s, border-color 0.15s;
 }
+.nav a:hover { background: var(--bg); border-color: var(--blue); text-decoration: none; }
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -57,10 +70,11 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid var(--line);
   border-radius: 10px;
   background: #fff;
 }
+.thumb { border: 1px solid var(--line); }
+.image-panel .hero-img { border: none; }
 .panel {
   background: var(--paper);
   border: 1px solid var(--line);
@@ -75,13 +89,13 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   padding-left: 12px;
 }
 .article h3 { font-size: 20px; margin-top: 28px; }
-.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article code { background: var(--code-bg); padding: 2px 5px; border-radius: 4px; }
 .article pre {
   overflow: auto;
   white-space: pre-wrap;
-  word-break: break-word;
-  background: #111827;
-  color: #f8fafc;
+  overflow-wrap: break-word;
+  background: var(--pre-bg);
+  color: var(--pre-fg);
   padding: 18px;
   border-radius: 8px;
 }
@@ -89,8 +103,8 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
 .article blockquote {
   margin: 18px 0;
   padding: 12px 16px;
-  border-left: 8px solid #d97706;
-  background: #fff7df;
+  border-left: 8px solid var(--quote-border);
+  background: var(--quote-bg);
 }
 .article table {
   width: 100%;
@@ -102,7 +116,7 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   padding: 10px 12px;
   vertical-align: top;
 }
-.article th { background: #eaf2ff; }
+.article th { background: var(--th-bg); }
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -114,9 +128,20 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 4px 16px rgba(23, 78, 166, 0.12);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.card:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
 }
 .card-body { padding: 12px 14px 14px; }
-.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-title { font-size: 18px; font-weight: 700; color: var(--ink); }
 .q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
 .status {
   display: inline-block;
@@ -126,7 +151,13 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
   border-radius: 6px;
   padding: 2px 7px;
   font-size: 13px;
-  font-weight: 900;
+  font-weight: 700;
+}
+@media (max-width: 720px) {
+  .topbar { display: block; }
+  h1 { font-size: 28px; }
+  .panel { padding: 20px; }
+  .nav { margin-top: 14px; }
 }
 @media (min-width: 980px) {
   .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
@@ -145,10 +176,10 @@ h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
     </header>
     <section class="layout">
       <aside class="panel image-panel">
-        <img class="hero-img" src="../imagegen_compressed/q08.png" alt="第 08 題教學記憶圖">
+        <img class="hero-img" src="../imagegen_compressed/q08.png" alt="第 08 題教學記憶圖" loading="lazy" width="1672" height="941">
       </aside>
       <article class="panel article">
-        <h1 id="第-08-題解析">第 08 題解析</h1>
+        <h2 id="第-08-題解析">第 08 題解析</h2>
 <p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
 <p>答案：<strong>(D)
 透過遞迴分裂方式建立分類規則的決策樹模型</strong></p>
