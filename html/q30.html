@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 30 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 30 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q29.html">上一題</a><a href="q31.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q30.png" alt="第 30 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-30-題解析">第 30 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(C)
+語言轉移造成召回率（Recall）下降，模型無法正確辨識關鍵情緒詞彙</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>跨語言部署可能因詞彙與語法差異造成召回率下降，進而拉低
+F1-score。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>某情感分析模型在英文資料集上取得macroF1-score=0.91。當該模型部署於西班牙文資料集時，F1-score驟降至0.58。下列哪一項解釋最合理，且與F1-score變化相關？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<h2 id="為什麼答案是-c">為什麼答案是 C</h2>
+<p>跨語言模型常因語法、關鍵詞彙特徵不同，導致模型無法識別目標語言的情感詞
+（Recall 下降），進而大幅拉低 F1-score（Precision 與 Recall
+的調和平均）。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>C</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>某情感分析模型在英文資料集上取得 macro F1-score = 0.91。當該模型部署於西班牙文資料集時，
+F1-score 驟降至 0.58。下列哪一項解釋最合理，且與 F1-score 變化相關？
+單選：
+a. (A)macro F1-score 本身波動性高，建議改用 micro-average F1-score 評估
+b. (B)模型在西班牙文語料上過度擬合，導致評估結果偏高
+c. (C)語言轉移造成召回率（Recall）下降，模型無法正確辨識關鍵情緒詞彙
+d. (D)以均方誤差（MSE）取代 F1-score 評估可獲得更準確的結果</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯macro-f1-score-本身波動性高建議改用-micr">A 錯：macro
+F1-score 本身波動性高，建議改用 micr…</h3>
+<p>它沒有直接解決本題核心：跨語言部署可能因詞彙與語法差異造成召回率下降，進而拉低
+F1-score。</p>
+<h3 id="b-錯模型在西班牙文語料上過度擬合導致評估結果偏高">B
+錯：模型在西班牙文語料上過度擬合，導致評估結果偏高</h3>
+<p>它沒有直接解決本題核心：跨語言部署可能因詞彙與語法差異造成召回率下降，進而拉低
+F1-score。</p>
+<h3 id="c-對語言轉移造成召回率recall下降模型無法正確辨識關鍵情">C
+對：語言轉移造成召回率（Recall）下降，模型無法正確辨識關鍵情…</h3>
+<p>正確：跨語言模型常因語法、關鍵詞彙特徵不同，導致模型無法識別目標語言的情感詞
+（Recall 下降），進而大幅拉低 F1-score（Precision 與 Recall
+的調和平均）。</p>
+<h3 id="d-錯以均方誤差mse取代-f1-score-評估可獲得更準確的">D
+錯：以均方誤差（MSE）取代 F1-score 評估可獲得更準確的…</h3>
+<p>它沒有直接解決本題核心：跨語言部署可能因詞彙與語法差異造成召回率下降，進而拉低
+F1-score。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>英文好、西語差，是語言轉移造成關鍵詞抓不到，F1
+跟著掉。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(C) 正確：跨語言模型常因語法、關鍵詞彙特徵不同，導致模型無法識別目標語言的情感詞
+（Recall 下降），進而大幅拉低 F1-score（Precision 與 Recall 的調和平均）。
+正確答案：(C)語言轉移造成召回率（Recall）下降，模型無法正確辨識關鍵情緒詞彙</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

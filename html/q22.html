@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 22 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 22 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q21.html">上一題</a><a href="q23.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q22.png" alt="第 22 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-22-題解析">第 22 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(B)
+以條件機率方式計算顧客屬於「會購買」或「不會購買」的分類機率</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>貝氏定理用後驗機率 P(類別|特徵) 做分類推論。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>某電商平台希望預測顧客是否會購買特定商品。系統蒐集顧客的瀏覽紀錄、停留時間、商品類別偏好與過去購買行為，並以此推估「在觀察到這些行為特徵的情況下，該顧客會購買的機率」。若模型採用貝氏定理（Bayes’Theorem）進行推論，下列敘述何者最符合其核心運作機制？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<blockquote>
+<p>檢查提醒：解析中的公式 P(類別|特徵) 有斷行，但答案本身清楚。</p>
+</blockquote>
+<h2 id="為什麼答案是-b">為什麼答案是 B</h2>
+<p>貝氏定理的核心是計算「後驗機率」，即 類別 特徵
+。這正是題目描述的「在觀察
+到行為特徵的情況下，顧客屬於『會購買』類別的機率」。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>B</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>某電商平台希望預測顧客是否會購買特定商品。系統蒐集顧客的瀏覽紀錄、停留時間、商品類別偏好
+與過去購買行為，並以此推估「在觀察到這些行為特徵的情況下，該顧客會購買的機率」。若模型採用
+貝氏定理（Bayes’Theorem）進行推論，下列敘述何者最符合其核心運作機制？
+單選：
+a. (A)根據歷史樣本自動分群，找出行為相似的顧客群
+b. (B)以條件機率方式計算顧客屬於「會購買」或「不會購買」的分類機率
+c. (C)以最小平方誤差（Mean Squared Error）為損失函數，預測顧客的購買金額
+d. (D)依據回饋信號（Feedback Signal）透過強化學習（Reinforcement Learning）動態調整
+推薦策略</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯根據歷史樣本自動分群找出行為相似的顧客群">A
+錯：根據歷史樣本自動分群，找出行為相似的顧客群</h3>
+<p>它沒有直接解決本題核心：貝氏定理用後驗機率 P(類別|特徵)
+做分類推論。</p>
+<h3 id="b-對以條件機率方式計算顧客屬於會購買或不會購買的分類機率">B
+對：以條件機率方式計算顧客屬於「會購買」或「不會購買」的分類機率</h3>
+<p>正確：貝氏定理的核心是計算「後驗機率」，即 類別 特徵
+。這正是題目描述的「在觀察
+到行為特徵的情況下，顧客屬於『會購買』類別的機率」。</p>
+<h3 id="c-錯以最小平方誤差mean-squared-error為損失函">C
+錯：以最小平方誤差（Mean Squared Error）為損失函…</h3>
+<p>它沒有直接解決本題核心：貝氏定理用後驗機率 P(類別|特徵)
+做分類推論。</p>
+<h3 id="d-錯依據回饋信號feedback-signal透過強化學習r">D
+錯：依據回饋信號（Feedback Signal）透過強化學習（R…</h3>
+<p>它沒有直接解決本題核心：貝氏定理用後驗機率 P(類別|特徵)
+做分類推論。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>看到「觀察到特徵下屬於某類的機率」就是貝氏條件機率。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(B) 正確：貝氏定理的核心是計算「後驗機率」，即 類別 特徵 。這正是題目描述的「在觀察
+到行為特徵的情況下，顧客屬於『會購買』類別的機率」。
+正確答案：(B)以條件機率方式計算顧客屬於「會購買」或「不會購買」的分類機率
+P(
+
+|
+
+)</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

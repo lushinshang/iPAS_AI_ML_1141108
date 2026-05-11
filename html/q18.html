@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 18 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 18 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q17.html">上一題</a><a href="q19.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q18.png" alt="第 18 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-18-題解析">第 18 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(A)
+引入正則化項（Regularization）以抑制過擬合，並支援缺失值自動處理與並行化訓練</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>XGBoost 相較傳統 GBDT
+的改進包含正則化、缺失值處理與並行化訓練。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>下列何者最能同時反映XGBoost（eXtremeGradientBoosting）相較於傳統梯度提升決策樹（GradientBoostingDecisionTree,GBDT）的主要技術改進？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<h2 id="為什麼答案是-a">為什麼答案是 A</h2>
+<p>XGBoost 的核心改進包括：(1)
+在目標函數中顯式加入正則化項（L1/L2）以防過擬 合；(2)
+能夠自動處理缺失值（Sparsity-aware Split Finding）；(3)
+支援並行計算（特徵粒度上 的並行）。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>A</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>下列何者最能同時反映 XGBoost（eXtreme Gradient Boosting）相較於傳統梯度提升決策樹
+（Gradient Boosting Decision Tree, GBDT）的主要技術改進？
+單選：
+a. (A)引入正則化項（Regularization）以抑制過擬合，並支援缺失值自動處理與並行化訓練
+b. (B)改以隨機森林（Random Forest）架構取代樹模型以提升準確率
+c. (C)以類神經網路（Neural Network）取代弱分類器（Weak Learners）
+d. (D)採用批次正規化（Batch Normalization）技術提升模型穩定性</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-對引入正則化項regularization以抑制過擬合並支">A
+對：引入正則化項（Regularization）以抑制過擬合，並支…</h3>
+<p>正確：XGBoost 的核心改進包括：(1)
+在目標函數中顯式加入正則化項（L1/L2）以防過擬 合；(2)
+能夠自動處理缺失值（Sparsity-aware Split Finding）；(3)
+支援並行計算（特徵粒度上 的並行）。</p>
+<h3 id="b-錯改以隨機森林random-forest架構取代樹模型以提升">B
+錯：改以隨機森林（Random Forest）架構取代樹模型以提升…</h3>
+<p>它沒有直接解決本題核心：XGBoost 相較傳統 GBDT
+的改進包含正則化、缺失值處理與並行化訓練。</p>
+<h3 id="c-錯以類神經網路neural-network取代弱分類器we">C
+錯：以類神經網路（Neural Network）取代弱分類器（We…</h3>
+<p>它沒有直接解決本題核心：XGBoost 相較傳統 GBDT
+的改進包含正則化、缺失值處理與並行化訓練。</p>
+<h3 id="d-錯採用批次正規化batch-normalization技術提">D
+錯：採用批次正規化（Batch Normalization）技術提…</h3>
+<p>它沒有直接解決本題核心：XGBoost 相較傳統 GBDT
+的改進包含正則化、缺失值處理與並行化訓練。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>XGBoost 三件事：正則、缺失、並行。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(A) 正確：XGBoost 的核心改進包括：(1) 在目標函數中顯式加入正則化項（L1/L2）以防過擬
+合；(2) 能夠自動處理缺失值（Sparsity-aware Split Finding）；(3) 支援並行計算（特徵粒度上
+的並行）。
+正確答案：(A)引入正則化項（Regularization）以抑制過擬合，並支援缺失值自動處理與並行化訓練</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 10 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 10 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q09.html">上一題</a><a href="q11.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q10.png" alt="第 10 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-10-題解析">第 10 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(C)
+行銷部門希望在短時間內比較多種顧客流失預測模型，缺乏專職工程師與時間進行手動建模</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>AutoML
+適合快速比較多模型、自動化特徵工程與調參，尤其在人力或時間不足時提升開發效率。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>下列哪一種應用情境最適合導入AutoML，以提升模型開發效率？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<blockquote>
+<p>檢查提醒：來源選項 C 與正確答案被斷行拆開，需合併為完整情境判讀。</p>
+</blockquote>
+<h2 id="為什麼答案是-c">為什麼答案是 C</h2>
+<p>AutoML
+的價值在於快速試驗與自動化。當需要在短時間內測試多種模型、且缺乏專
+職人力進行繁瑣的手動特徵工程與調參時，AutoML 是最佳解方。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>C</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>下列哪一種應用情境最適合導入 AutoML，以提升模型開發效率？
+單選：
+a. (A)公司已有完整的 MLOps 平台與資深資料科學團隊，模型更新採固定流程
+b. (B)製造部門的生產良率模型已長期穩定運作，只需定期調整參數
+c. (C)行銷部門希望在短時間內比較多種顧客流失預測模型，缺乏專職工程師與時間進行手動建
+模
+d. (D)財務部門正在開發高度客製化的信用風險評估模型，需要精細控制特徵工程與演算法
+細節</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯公司已有完整的-mlops-平台與資深資料科學團隊模型更新採">A
+錯：公司已有完整的 MLOps 平台與資深資料科學團隊，模型更新採…</h3>
+<p>既有完整團隊與流程，AutoML 效益較低。</p>
+<h3 id="b-錯製造部門的生產良率模型已長期穩定運作只需定期調整參數">B
+錯：製造部門的生產良率模型已長期穩定運作，只需定期調整參數</h3>
+<p>模型已穩定，不需頻繁重新建模。</p>
+<h3
+id="c-對行銷部門希望在短時間內比較多種顧客流失預測模型缺乏專職工程師">C
+對：行銷部門希望在短時間內比較多種顧客流失預測模型，缺乏專職工程師…</h3>
+<p>正確：AutoML
+的價值在於快速試驗與自動化。當需要在短時間內測試多種模型、且缺乏專
+職人力進行繁瑣的手動特徵工程與調參時，AutoML 是最佳解方。</p>
+<h3
+id="d-錯財務部門正在開發高度客製化的信用風險評估模型需要精細控制特徵">D
+錯：財務部門正在開發高度客製化的信用風險評估模型，需要精細控制特徵…</h3>
+<p>高度客製化通常需要人工深度介入。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>要快試多模型、少人力少時間，就選 AutoML。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(C) 正確：AutoML 的價值在於快速試驗與自動化。當需要在短時間內測試多種模型、且缺乏專
+職人力進行繁瑣的手動特徵工程與調參時，AutoML 是最佳解方。
+(A) 既有完整團隊與流程，AutoML 效益較低。
+(B) 模型已穩定，不需頻繁重新建模。
+(D) 高度客製化通常需要人工深度介入。
+正確答案：(C)行銷部門希望在短時間內比較多種顧客流失預測模型，缺乏專職工程師與時間進行手動
+建模</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

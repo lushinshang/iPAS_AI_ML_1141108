@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 47 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 47 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q46.html">上一題</a><a href="q48.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q47.png" alt="第 47 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-47-題解析">第 47 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(B) 程式碼 A、程式碼 C</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>KNN 交叉驗證要輸出準確率，<code>scoring="accuracy"</code>
+或分類器預設 score 都符合；<code>f1</code> 不等於準確率。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>研究人員在對digits資料集進行分類時，決定使用KNN並搭配交叉驗證來評估模型準確率。他們撰寫了四組不同的程式碼來進行KNN訓練與交叉驗證，但不確定哪幾組程式碼能正確執行並輸出準確率。每組程式碼在資料切割、模型訓練、交叉驗證函數的使用上略有差異，研究人員希望</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<p>給不會 Python
+的你：先不要逐字背程式。把程式碼當成零件名稱來看，找出題目要操作的是哪個零件，再看選項有沒有動到同一個零件。</p>
+<h2 id="為什麼答案是-b">為什麼答案是 B</h2>
+<p>程式碼 A 明確指定了 <code>accuracy</code> 指標；程式碼 C
+使用預設值，分類模型的預設評估 指標即為 <code>accuracy</code>。程式碼 B
+計算的是 F1-score，不符題意。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>B</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>研究人員在對 digits 資料集進行分類時，決定使用 KNN 並搭配交叉驗證來評估模型準確率。他們撰
+寫了四組不同的程式碼來進行 KNN 訓練與交叉驗證，但不確定哪幾組程式碼能正確執行並輸出準確
+率。每組程式碼在資料切割、模型訓練、交叉驗證函數的使用上略有差異，研究人員希望找出可以正
+確完成任務的程式碼組合，以確保模型評估的可靠性。
+#
+
+程式碼 A :
+
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+X, y = digits.data, digits.target
+model = KNeighborsClassifier(n_neighbors=3)
+cv = StratifiedKFold(n_splits=5, shuffle=True)
+scores = cross_val_score(model, X, y, cv=cv, scoring=&quot;accuracy&quot;)
+print(scores.mean())
+
+程式碼
+
+#
+B :
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+X, y = digits.data, digits.target
+model = KNeighborsClassifier(n_neighbors=3)
+cv = StratifiedKFold(n_splits=5, shuffle=True)
+scores = cross_val_score(model, X, y, cv=cv, scoring=&quot;f1&quot;)
+print(scores.mean())
+
+#
+
+程式碼 C :
+
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+X, y = digits.data, digits.target
+model = KNeighborsClassifier(n_neighbors=3)
+scores = cross_val_score(model, X, y, cv=5, scoring=&quot;accuracy&quot;)
+print(scores.mean())
+
+#
+
+程式碼 D :
+
+from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.neighbors import KNeighborsClassifier
+X, y = digits.data, digits.target
+model = KNeighborsClassifier(n_neighbors=3)
+
+scores = cross_val_score(model, X, y, cv=5, scoring=&quot;f1&quot;)
+print(scores.mean())
+
+請問哪幾組程式碼能正確使用 KNN 搭配交叉驗證，對 digits 資料集進行訓練並輸出準確率？
+單選：
+a. (A)程式碼 A、程式碼 B、程式碼 C、程式碼 D
+b. (B)程式碼 A、程式碼 C
+c. (C)程式碼 A、程式碼 B
+d. (D)程式碼 C、程式碼 D</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯程式碼-a程式碼-b程式碼-c程式碼-d">A 錯：程式碼 A、程式碼
+B、程式碼 C、程式碼 D</h3>
+<p>它沒有直接解決本題核心：KNN
+交叉驗證要輸出準確率，<code>scoring="accuracy"</code> 或分類器預設 score
+都符合；<code>f1</code> 不等於準確率。</p>
+<h3 id="b-對程式碼-a程式碼-c">B 對：程式碼 A、程式碼 C</h3>
+<p>正確：程式碼 A 明確指定了 <code>accuracy</code> 指標；程式碼 C
+使用預設值，分類模型的預設評估 指標即為 <code>accuracy</code>。程式碼 B
+計算的是 F1-score，不符題意。</p>
+<h3 id="c-錯程式碼-a程式碼-b">C 錯：程式碼 A、程式碼 B</h3>
+<p>它沒有直接解決本題核心：KNN
+交叉驗證要輸出準確率，<code>scoring="accuracy"</code> 或分類器預設 score
+都符合；<code>f1</code> 不等於準確率。</p>
+<h3 id="d-錯程式碼-c程式碼-d">D 錯：程式碼 C、程式碼 D</h3>
+<p>它沒有直接解決本題核心：KNN
+交叉驗證要輸出準確率，<code>scoring="accuracy"</code> 或分類器預設 score
+都符合；<code>f1</code> 不等於準確率。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>題目要 accuracy，就排除 scoring 填 f1 的選項。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(B) 正確：程式碼 A 明確指定了 `accuracy` 指標；程式碼 C 使用預設值，分類模型的預設評估
+指標即為 `accuracy`。程式碼 B 計算的是 F1-score，不符題意。
+正確答案：(B)程式碼 A、程式碼 C</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

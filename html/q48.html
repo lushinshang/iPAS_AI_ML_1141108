@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 48 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 48 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q47.html">上一題</a><a href="q49.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q48.png" alt="第 48 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-48-題解析">第 48 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(C) A、D</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>Z-score
+標準化會讓訓練特徵中心化並縮放尺度，有助於梯度下降；它不是 Min-Max
+正規化，也不是特徵選擇。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>使用鐵達尼號(Titanic)資料集進行多層感知機(MultilayerPerceptron,MLP)分類預測分析，其中survived為反應變數(1表示存活，0表示死亡)。附圖程式碼展示資料載入與處理，請根據此資料回答第48~50題。importnumpya</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<p>給不會 Python
+的你：先不要逐字背程式。把程式碼當成零件名稱來看，找出題目要操作的是哪個零件，再看選項有沒有動到同一個零件。</p>
+<blockquote>
+<p>檢查提醒：題組程式與題目間有頁碼/斷頁雜訊，但答案與解析清楚。</p>
+</blockquote>
+<h2 id="為什麼答案是-c">為什麼答案是 C</h2>
+<p>包含 A 與 D。 A 正確：減去平均值會使資料中心化（平均值變為 0）。 D
+正確：標準化（Z-score）能讓特徵具有相同的尺度，有助於梯度下降收斂，防止梯度問
+題。 B 錯誤：除以標準差是將標準差變為 1，不是 0。 C 錯誤：這是 Min-Max
+正規化的效果。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>C</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>使用鐵達尼號(Titanic)資料集進行多層感知機(Multilayer Perceptron, MLP)分類預測分析，其
+中 survived 為反應變數(1 表示存活，0 表示死亡)。附圖程式碼展示資料載入與處理，請根據此
+資料回答第 48~50 題。
+import numpy as np
+import pandas as pd
+from keras import Sequential
+from keras.layers import Input, Dense
+np.random.seed(123)
+df_train = pd.read_csv(&quot;titanic_train.csv&quot;)
+df_test = pd.read_csv(&quot;titanic_test.csv&quot;)
+
+下圖顯示資料集的前 5 筆資料。
+df_train.head()
+pclass sex
+
+age
+
+sibsp parch
+
+fare
+
+embarked_C
+
+embarked_Q
+
+embarked_S
+
+survived
+
+0
+
+1
+
+1
+
+29.0000
+
+0
+
+0
+
+211.3375
+
+False
+
+False
+
+True
+
+1
+
+1
+
+1
+
+0
+
+0.9167
+
+1
+
+2
+
+151.5500
+
+False
+
+False
+
+True
+
+1
+
+2
+
+1
+
+1
+
+2.0000
+
+1
+
+2
+
+151.5500
+
+False
+
+False
+
+True
+
+0
+
+3
+
+1
+
+0
+
+30.0000
+
+1
+
+2
+
+151.5500
+
+False
+
+False
+
+True
+
+0
+
+4
+
+1
+
+0
+
+48.0000
+
+0
+
+0
+
+26.5500
+
+False
+
+False
+
+True
+
+1
+
+fare
+
+embarked_C
+
+embarked_Q
+
+embarked_S
+
+survived
+
+df_test.head()
+pclass sex
+
+age
+
+sibsp parch
+
+0
+
+1
+
+1
+
+25.000000
+
+1
+
+2
+
+151.5500
+
+False
+
+False
+
+True
+
+0
+
+1
+
+1
+
+1
+
+18.000000
+
+1
+
+0
+
+227.5250
+
+True
+
+False
+
+False
+
+1
+
+2
+
+1
+
+0
+
+29.881135
+
+0
+
+0
+
+25.9250
+
+False
+
+False
+
+True
+
+0
+
+3
+
+1
+
+1
+
+32.000000
+
+0
+
+0
+
+76.2917
+
+True
+
+False
+
+False
+
+1
+
+4
+
+1
+
+1
+
+47.000000
+
+1
+
+1
+
+52.5542
+
+False
+
+False
+
+True
+
+1
+
+dataset_train = df_train.values.astype(&#39;float32&#39;)
+dataset_test = df_test.values.astype(&#39;float32&#39;)
+X_train = dataset_train[:, 0:9]
+y_train = dataset_train[:, 9]
+X_test = dataset_test[:, 0:9]
+y_test = dataset_test[:, 9]
+
+48. 參考下圖程式碼，下列何者正確？
+X_train -= X_train.mean(axis=0)
+X_train /= X_train.std(axis=0)
+X_test -= X_test.mean(axis=0)
+X_test /= X_test.std(axis=0)
+
+A：X_train -= X_train.mean(axis=0) 將每個訓練集特徵的平均值調整為 0
+B：X_train /= X_train.std(axis=0) 將每個訓練集特徵的標準差調整為 0
+C：X_train 處理結果會將資料壓縮到 0 和 1 之間
+D：標準化結果防止梯度爆炸或消失
+E：標準化是屬於特徵選擇(Feature Selection)方法
+F：X_train 程式碼應修正為 X_train = X_train.std(axis=0), X_test 程式碼應修正為
+X_test = X_test.std(axis=0)
+
+單選：
+a. (A)A、B、C、D
+b. (B)A、E
+c. (C)A、D
+d. (D)A、C、F</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯abcd">A 錯：A、B、C、D</h3>
+<p>它沒有直接解決本題核心：Z-score
+標準化會讓訓練特徵中心化並縮放尺度，有助於梯度下降；它不是 Min-Max
+正規化，也不是特徵選擇。</p>
+<h3 id="b-錯ae">B 錯：A、E</h3>
+<p>它沒有直接解決本題核心：Z-score
+標準化會讓訓練特徵中心化並縮放尺度，有助於梯度下降；它不是 Min-Max
+正規化，也不是特徵選擇。</p>
+<h3 id="c-對ad">C 對：A、D</h3>
+<p>正確：包含 A 與 D。 A 正確：減去平均值會使資料中心化（平均值變為
+0）。 D
+正確：標準化（Z-score）能讓特徵具有相同的尺度，有助於梯度下降收斂，防止梯度問
+題。 B 錯誤：除以標準差是將標準差變為 1，不是 0。 C 錯誤：這是 Min-Max
+正規化的效果。</p>
+<h3 id="d-錯acf">D 錯：A、C、F</h3>
+<p>它沒有直接解決本題核心：Z-score
+標準化會讓訓練特徵中心化並縮放尺度，有助於梯度下降；它不是 Min-Max
+正規化，也不是特徵選擇。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>減平均是均值歸零，除標準差是尺度一致。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(C) 正確：包含 A 與 D。
+A 正確：減去平均值會使資料中心化（平均值變為 0）。
+D 正確：標準化（Z-score）能讓特徵具有相同的尺度，有助於梯度下降收斂，防止梯度問
+題。
+B 錯誤：除以標準差是將標準差變為 1，不是 0。
+C 錯誤：這是 Min-Max 正規化的效果。
+正確答案：(C)A、D</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

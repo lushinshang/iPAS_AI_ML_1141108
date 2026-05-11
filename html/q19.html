@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 19 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 19 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q18.html">上一題</a><a href="q20.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q19.png" alt="第 19 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-19-題解析">第 19 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(C) 使用準確率（Accuracy）作為評估指標</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>類別極度不平衡時 Accuracy
+會被多數類主導，無法反映少數類偵測能力。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>某醫療機構開發疾病早期偵測模型，正樣本（確診病例）僅佔3%。在模型訓練與評估過程中，下列哪一種作法最不適合用於提升對少數類病例的預測能力？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<h2 id="為什麼答案是-c">為什麼答案是 C</h2>
+<p>在極度不平衡資料（正樣本
+3%）中，若模型全部猜「沒病」，準確率（Accuracy）可 達
+97%，看似很高但毫無臨床意義。因此，準確率是最不適合的指標。應使用
+Recall, F1-score 或 AUC。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>C</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>某醫療機構開發疾病早期偵測模型，正樣本（確診病例）僅佔 3%。在模型訓練與評估過程中，下列
+哪一種作法最不適合用於提升對少數類病例的預測能力？
+單選：
+a. (A)使用 SMOTE 過採樣
+b. (B)調整類別權重
+c. (C)使用準確率（Accuracy）作為評估指標
+d. (D)欠採樣多數類(Undersampling the majority class)</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯使用-smote-過採樣">A 錯：使用 SMOTE 過採樣</h3>
+<p>它沒有直接解決本題核心：類別極度不平衡時 Accuracy
+會被多數類主導，無法反映少數類偵測能力。</p>
+<h3 id="b-錯調整類別權重">B 錯：調整類別權重</h3>
+<p>它沒有直接解決本題核心：類別極度不平衡時 Accuracy
+會被多數類主導，無法反映少數類偵測能力。</p>
+<h3 id="c-對使用準確率accuracy作為評估指標">C
+對：使用準確率（Accuracy）作為評估指標</h3>
+<p>正確：在極度不平衡資料（正樣本
+3%）中，若模型全部猜「沒病」，準確率（Accuracy）可 達
+97%，看似很高但毫無臨床意義。因此，準確率是最不適合的指標。應使用
+Recall, F1-score 或 AUC。</p>
+<h3 id="d-錯欠採樣多數類undersampling-the-majori">D
+錯：欠採樣多數類(Undersampling the majori…</h3>
+<p>它沒有直接解決本題核心：類別極度不平衡時 Accuracy
+會被多數類主導，無法反映少數類偵測能力。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>少數類很少時，Accuracy 會騙人。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(C) 正確：在極度不平衡資料（正樣本 3%）中，若模型全部猜「沒病」，準確率（Accuracy）可
+達 97%，看似很高但毫無臨床意義。因此，準確率是最不適合的指標。應使用 Recall, F1-score
+或 AUC。
+正確答案：(C)使用準確率（Accuracy）作為評估指標</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 01 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 01 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q02.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q01.png" alt="第 01 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-01-題解析">第 01 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(B) 交叉驗證（Cross-Validation）</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>用訓練/驗證切分模擬未觀察資料表現，評估模型泛化能力。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>某零售企業建立一個銷售預測模型，希望評估該模型在不同月份的新資料上，是否仍能維持穩定的預測表現。資料科學團隊計畫利用統計方法檢驗模型對未觀察資料的適應能力與泛化效果。下列哪一種方法最適合用於此目的？</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<h2 id="為什麼答案是-b">為什麼答案是 B</h2>
+<p>交叉驗證（Cross-Validation）是評估模型泛化能力（Generalization）的標準方法，
+透過多次切分訓練集與驗證集，模擬模型在未見數據上的表現。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>B</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>某零售企業建立一個銷售預測模型，希望評估該模型在不同月份的新資料上，是否仍能維持穩定的預
+測表現。資料科學團隊計畫利用統計方法檢驗模型對未觀察資料的適應能力與泛化效果。下列哪一種
+方法最適合用於此目的？
+單選：
+a. (A)F 檢定（F-test）
+b. (B)交叉驗證（Cross-Validation）
+c. (C)配對樣本 t 檢定（Paired-sample t-test）
+d. (D)卡方檢定（Chi-square Test）</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯f-檢定f-test">A 錯：F 檢定（F-test）</h3>
+<p>F 檢定主要用於變異數分析。</p>
+<h3 id="b-對交叉驗證cross-validation">B
+對：交叉驗證（Cross-Validation）</h3>
+<p>正確：交叉驗證（Cross-Validation）是評估模型泛化能力（Generalization）的標準方法，
+透過多次切分訓練集與驗證集，模擬模型在未見數據上的表現。</p>
+<h3 id="c-錯配對樣本-t-檢定paired-sample-t-test">C 錯：配對樣本 t
+檢定（Paired-sample t-test）</h3>
+<p>配對樣本 t 檢定用於比較兩組相依樣本的平均數差異。</p>
+<h3 id="d-錯卡方檢定chi-square-test">D 錯：卡方檢定（Chi-square
+Test）</h3>
+<p>卡方檢定用於類別變數的獨立性檢定。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>問「新資料是否穩定、泛化好不好」就選交叉驗證。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(B) 正確：交叉驗證（Cross-Validation）是評估模型泛化能力（Generalization）的標準方法，
+透過多次切分訓練集與驗證集，模擬模型在未見數據上的表現。
+(A) F 檢定主要用於變異數分析。
+(C) 配對樣本 t 檢定用於比較兩組相依樣本的平均數差異。
+(D) 卡方檢定用於類別變數的獨立性檢定。
+正確答案：(B)交叉驗證（Cross-Validation）</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

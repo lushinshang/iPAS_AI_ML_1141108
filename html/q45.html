@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 45 題解析：VGG16 遷移學習與凍結參數</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 45 題解析：VGG16 遷移學習與凍結參數</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q44.html">上一題</a><a href="q46.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q45.png" alt="第 45 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-45-題解析vgg16-遷移學習與凍結參數">第 45 題解析：VGG16
+遷移學習與凍結參數</h1>
+<p><em>思維路由：林守德的模型結構辨識 + 蔡宗翰的程式碼劇本化。</em></p>
+<p>答案：<strong>B</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是考你會不會寫 Python，而是在考你能不能看懂 VGG16
+的「身體部位」。</p>
+<p>VGG16 大致分成兩段：</p>
+<table>
+<thead>
+<tr>
+<th>VGG16 部位</th>
+<th>在 PyTorch 裡的名稱</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>卷積層區塊</td>
+<td><code>model.features</code></td>
+<td>抽影像特徵，例如邊緣、紋理、形狀</td>
+</tr>
+<tr>
+<td>全連接分類器</td>
+<td><code>model.classifier</code></td>
+<td>根據特徵做最後分類</td>
+</tr>
+</tbody>
+</table>
+<p>題目說：</p>
+<blockquote>
+<p>凍結卷積層的參數，只訓練最後全連接層 classifier</p>
+</blockquote>
+<p>所以正確動作應該是：</p>
+<ol type="1">
+<li>找到卷積層：<code>model.features</code></li>
+<li>把卷積層凍結：<code>requires_grad = False</code></li>
+<li>換掉最後分類輸出層：<code>model.classifier[6] = Linear(4096, 10)</code></li>
+</ol>
+<p>這正是 <strong>B</strong>。</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> param <span class="kw">in</span> model.features.parameters():</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    param.requires_grad <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>model.classifier[<span class="dv">6</span>] <span class="op">=</span> torch.nn.Linear(<span class="dv">4096</span>, <span class="dv">10</span>)</span></code></pre></div>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯凍結整個模型">A 錯：凍結整個模型</h3>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> param <span class="kw">in</span> model.parameters():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    param.requires_grad <span class="op">=</span> <span class="va">False</span></span></code></pre></div>
+<p><code>model.parameters()</code> 代表整個
+VGG16，包括卷積層和分類器都被凍結。雖然後面換了
+<code>classifier[6]</code>，但它只會訓練新換上的最後一層，不符合「只凍結卷積層，訓練
+classifier」的完整語意。</p>
+<h3 id="b-對只凍結卷積層">B 對：只凍結卷積層</h3>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> param <span class="kw">in</span> model.features.parameters():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    param.requires_grad <span class="op">=</span> <span class="va">False</span></span></code></pre></div>
+<p>看到 <code>features</code>
+就要想到：<strong>卷積特徵抽取區</strong>。這正是題目要求凍結的部分。</p>
+<h3 id="c-錯凍結-classifier">C 錯：凍結 classifier</h3>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> param <span class="kw">in</span> model.classifier.parameters():</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    param.requires_grad <span class="op">=</span> <span class="va">False</span></span></code></pre></div>
+<p>題目要訓練 classifier，這個選項卻把 classifier
+凍結，方向完全相反。</p>
+<h3 id="d-錯寫法不正確">D 錯：寫法不正確</h3>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model.requires_grad <span class="op">=</span> <span class="va">False</span></span></code></pre></div>
+<p>這只是幫 <code>model</code>
+物件加一個屬性，不會真正逐一凍結裡面的權重參數。凍結要針對
+<code>parameters()</code> 裡的每個參數設定。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p>看到題目關鍵字：</p>
+<blockquote>
+<p>凍結卷積層</p>
+</blockquote>
+<p>就找：</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model.features.parameters()</span></code></pre></div>
+<p>看到：</p>
+<blockquote>
+<p>訓練 classifier</p>
+</blockquote>
+<p>就不要選會凍結 <code>model.classifier.parameters()</code>
+的選項。</p>
+<p>快速口訣：</p>
+<p><strong>凍結卷積找 <code>features</code>，訓練分類別凍
+<code>classifier</code>。</strong></p>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

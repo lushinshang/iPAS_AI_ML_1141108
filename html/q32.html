@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 32 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 32 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q31.html">上一題</a><a href="q33.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q32.png" alt="第 32 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-32-題解析">第 32 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(D) 採用 L1
+正則化（Lasso），透過懲罰項使部分特徵係數縮為 0</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>L1/Lasso
+可使部分係數歸零，因此同時具備正則化與特徵選擇效果；L2/Ridge
+主要是縮小係數而非篩掉特徵。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>某電信公司開發客戶流失預測模型，使用大量顧客行為特徵，例如通話時長、上網頻率、帳單金額、客服聯絡次數等。在訓練過程中，團隊發現部分特徵彼此高度相關，但同時也懷疑有些特徵對流失預測的貢獻度有限。若希望模型在避免過擬合（Overfitting）的同時，能自動篩選出</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<h2 id="為什麼答案是-d">為什麼答案是 D</h2>
+<p>L1 正則化（Lasso）的幾何特性會將不重要的特徵係數直接壓縮為
+0，從而實現自動
+化的「特徵選擇」。L2（Ridge）只能縮小係數，無法歸零。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>D</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>某電信公司開發客戶流失預測模型，使用大量顧客行為特徵，例如通話時長、上網頻率、帳單金額、
+客服聯絡次數等。在訓練過程中，團隊發現部分特徵彼此高度相關，但同時也懷疑有些特徵對流失預
+測的貢獻度有限。若希望模型在避免過擬合（Overfitting）的同時，能自動篩選出較具代表性的特
+徵，採用下列哪一種方法最為合適？
+單選：
+a. (A)使用早期停止法（Early Stopping）控制訓練回合數，避免過擬合（Overfitting）
+b. (B)同時移除多重共線性特徵並採用 L2 正則化（Ridge），以確保模型穩定收斂
+c. (C)僅使用 L2 正則化（Ridge），抑制所有權重幅度但保留全部特徵
+d. (D)採用 L1 正則化（Lasso），透過懲罰項使部分特徵係數縮為 0</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯使用早期停止法early-stopping控制訓練回合數">A
+錯：使用早期停止法（Early Stopping）控制訓練回合數，…</h3>
+<p>它沒有直接解決本題核心：L1/Lasso
+可使部分係數歸零，因此同時具備正則化與特徵選擇效果；L2/Ridge
+主要是縮小係數而非篩掉特徵。</p>
+<h3 id="b-錯同時移除多重共線性特徵並採用-l2-正則化ridge以確">B
+錯：同時移除多重共線性特徵並採用 L2 正則化（Ridge），以確…</h3>
+<p>它沒有直接解決本題核心：L1/Lasso
+可使部分係數歸零，因此同時具備正則化與特徵選擇效果；L2/Ridge
+主要是縮小係數而非篩掉特徵。</p>
+<h3 id="c-錯僅使用-l2-正則化ridge抑制所有權重幅度但保留全部">C
+錯：僅使用 L2 正則化（Ridge），抑制所有權重幅度但保留全部…</h3>
+<p>它沒有直接解決本題核心：L1/Lasso
+可使部分係數歸零，因此同時具備正則化與特徵選擇效果；L2/Ridge
+主要是縮小係數而非篩掉特徵。</p>
+<h3 id="d-對採用-l1-正則化lasso透過懲罰項使部分特徵係數縮為">D 對：採用
+L1 正則化（Lasso），透過懲罰項使部分特徵係數縮為…</h3>
+<p>正確：L1 正則化（Lasso）的幾何特性會將不重要的特徵係數直接壓縮為
+0，從而實現自動
+化的「特徵選擇」。L2（Ridge）只能縮小係數，無法歸零。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>要自動選特徵找 L1，要穩定縮權重找 L2。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(D) 正確：L1 正則化（Lasso）的幾何特性會將不重要的特徵係數直接壓縮為 0，從而實現自動
+化的「特徵選擇」。L2（Ridge）只能縮小係數，無法歸零。
+正確答案：(D)採用 L1 正則化（Lasso），透過懲罰項使部分特徵係數縮為 0</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>

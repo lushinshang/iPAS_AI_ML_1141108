@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 42 題解析</title>
+  <style>
+:root {
+  --ink: #172033;
+  --muted: #667085;
+  --line: #d8e0ec;
+  --paper: #ffffff;
+  --bg: #f5f7fb;
+  --blue: #174ea6;
+  --yellow: #ffea00;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+  line-height: 1.72;
+}
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.shell { max-width: 1180px; margin: 0 auto; padding: 36px 22px 64px; }
+.topbar {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 22px;
+}
+.eyebrow { color: var(--muted); font-size: 15px; font-weight: 700; }
+h1 { margin: 4px 0 0; font-size: 34px; line-height: 1.2; letter-spacing: 0; }
+.summary { color: var(--muted); margin: 10px 0 0; }
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.nav a {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+}
+.hero-img, .thumb {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 26px;
+}
+.article h1 { font-size: 30px; margin-top: 0; }
+.article h2 {
+  font-size: 23px;
+  margin-top: 34px;
+  border-left: 8px solid var(--blue);
+  padding-left: 12px;
+}
+.article h3 { font-size: 20px; margin-top: 28px; }
+.article code { background: #eef3ff; padding: 2px 5px; border-radius: 4px; }
+.article pre {
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #111827;
+  color: #f8fafc;
+  padding: 18px;
+  border-radius: 8px;
+}
+.article pre code { background: transparent; padding: 0; }
+.article blockquote {
+  margin: 18px 0;
+  padding: 12px 16px;
+  border-left: 8px solid #d97706;
+  background: #fff7df;
+}
+.article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+}
+.article th, .article td {
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  vertical-align: top;
+}
+.article th { background: #eaf2ff; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+.card {
+  display: block;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.card-body { padding: 12px 14px 14px; }
+.q-title { font-size: 18px; font-weight: 900; color: var(--ink); }
+.q-meta { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.status {
+  display: inline-block;
+  background: var(--yellow);
+  color: #111;
+  border: 1px solid #111;
+  border-radius: 6px;
+  padding: 2px 7px;
+  font-size: 13px;
+  font-weight: 900;
+}
+@media (min-width: 980px) {
+  .layout { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: start; }
+  .image-panel { position: sticky; top: 18px; }
+}
+</style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">114 年第二梯次 L23 科目三</div>
+        <h1>第 42 題解析</h1>
+      </div>
+      <nav class="nav"><a href="../index.html">目錄</a><a href="q41.html">上一題</a><a href="q43.html">下一題</a></nav>
+    </header>
+    <section class="layout">
+      <aside class="panel image-panel">
+        <img class="hero-img" src="../imagegen_compressed/q42.png" alt="第 42 題教學記憶圖">
+      </aside>
+      <article class="panel article">
+        <h1 id="第-42-題解析">第 42 題解析</h1>
+<p><em>思維路由：林守德的穩健辨識 + 蔡宗翰的劇本化拆解。</em></p>
+<p>答案：<strong>(B) 全連接層(Linear)</strong></p>
+<h2 id="題目在問什麼">題目在問什麼</h2>
+<p>這題不是要你背名詞，而是要你看出題幹正在考：</p>
+<p><strong>VGG16 參數量主要集中在全連接層，尤其 Linear-33
+參數量超過一億。</strong></p>
+<p>題幹線索可以先抓這一句：</p>
+<blockquote>
+<p>VGG16是由牛津大學VisualGeometryGroup(VGG)在2014年提出的經典卷積神經網路（ConvolutionalNeuralNetwork,CNN）架構。該模型以簡潔且規則的層堆疊設計聞名，廣泛應用於影像分類、特徵提取及遷移學習等任務。附圖</p>
+</blockquote>
+<p>所以解題順序是：</p>
+<ol type="1">
+<li>先判斷題目描述的是哪一種任務或問題。</li>
+<li>再找最能直接處理這個問題的模型、指標、方法或程式碼位置。</li>
+<li>最後排除只是「看起來相關」、但沒有真正回答題幹要求的選項。</li>
+</ol>
+<p>給不會 Python
+的你：先不要逐字背程式。把程式碼當成零件名稱來看，找出題目要操作的是哪個零件，再看選項有沒有動到同一個零件。</p>
+<h2 id="為什麼答案是-b">為什麼答案是 B</h2>
+<p>根據表格，第一個全連接層（Linear-33）的參數量高達
+102,764,544，佔總參數量 （約 1.38 億）的絕大部分（約
+74%）。卷積層的參數相對較少。</p>
+<p>換成白話說：本題的關鍵不是選一個熟悉的 AI
+名詞，而是看哪個選項<strong>剛好完成題幹指定的工作</strong>。因此答案選
+<strong>B</strong>。</p>
+<h2 id="題目內容">題目內容</h2>
+<pre class="text"><code>VGG16 是由牛津大學 Visual Geometry Group(VGG)在 2014 年提出的經典卷積神經網路
+（Convolutional Neural Network, CNN）架構。該模型以簡潔且規則的層堆疊設計聞名，廣泛應用於
+影像分類、特徵提取及遷移學習等任務。附圖程式碼載入了預訓練的 VGG16 模型，並輸出其完整層
+級結構及參數統計摘要（如附表）。請根據此資訊回答 42~45 題。
+from torchsummary import summary
+from torchvision import models
+model = models.vgg16(weights=&#39;IMAGENET1K_V1&#39;)
+summary(model, (3, 150, 150))
+
+Layer (type)
+
+Output Shape
+
+Param #
+
+Conv2d-1
+
+[-1, 64, 150, 150]
+
+ReLU-2
+
+[-1, 64, 150, 150]
+
+0
+
+Conv2d-3
+
+[-1, 64, 150, 150]
+
+36,928
+
+ReLU-4
+
+[-1, 64, 150, 150]
+
+0
+
+MaxPool2d-5
+
+[-1, 64, 75, 75]
+
+0
+
+Conv2d-6
+
+[-1, 128, 75, 75]
+
+73,856
+
+ReLU-7
+
+[-1, 128, 75, 75]
+
+0
+
+Conv2d-8
+
+[-1, 128, 75, 75]
+
+147,584
+
+ReLU-9
+
+[-1, 128, 75, 75]
+
+0
+
+MaxPool2d-10
+
+[-1, 128, 37, 37]
+
+0
+
+Conv2d-11
+
+[-1, 256, 37, 37]
+
+295,168
+
+ReLU-12
+
+[-1, 256, 37, 37]
+
+0
+
+Conv2d-13
+
+[-1, 256, 37, 37]
+
+590,080
+
+ReLU-14
+
+[-1, 256, 37, 37]
+
+0
+
+Conv2d-15
+
+[-1, 256, 37, 37]
+
+590,080
+
+ReLU-16
+
+[-1, 256, 37, 37]
+
+0
+
+MaxPool2d-17
+
+[-1, 256, 18, 18]
+
+0
+
+Conv2d-18
+
+[-1, 512, 18, 18]
+
+1,180,160
+
+ReLU-19
+
+[-1, 512, 18, 18]
+
+0
+
+Conv2d-20
+
+[-1, 512, 18, 18]
+
+2,359,808
+
+ReLU-21
+
+[-1, 512, 18, 18]
+
+0
+
+Conv2d-22
+
+[-1, 512, 18, 18]
+
+2,359,808
+
+ReLU-23
+
+[-1, 512, 18, 18]
+
+0
+
+MaxPool2d-24
+
+[-1, 512, 9, 9]
+
+0
+
+Conv2d-25
+
+[-1, 512, 9, 9]
+
+2,359,808
+
+ReLU-26
+
+[-1, 512, 9, 9]
+
+0
+
+Conv2d-27
+
+[-1, 512, 9, 9]
+
+2,359,808
+
+ReLU-28
+
+[-1, 512, 9, 9]
+
+0
+
+Conv2d-29
+
+[-1, 512, 9, 9]
+
+2,359,808
+
+ReLU-30
+
+[-1, 512, 9, 9]
+
+0
+
+MaxPool2d-31
+
+[-1, 512, 4, 4]
+
+0
+
+AdaptiveAvgPool2d-32
+
+[-1, 512, 7, 7]
+
+0
+
+Linear-33
+
+[-1, 4096]
+
+102,764,544
+
+ReLU-34
+
+[-1, 4096]
+
+0
+
+Dropout-35
+
+[-1, 4096]
+
+0
+
+Linear-36
+
+[-1, 4096]
+
+16,781,312
+
+1,792
+
+ReLU-37
+
+[-1, 4096]
+
+0
+
+Dropout-38
+
+[-1, 4096]
+
+0
+
+Linear-39
+
+[-1, 1000]
+
+4,097,000
+
+Total params: 138,357,544
+Trainable params: 138,357,544
+Non-trainable params: 0
+---------------------------------------------------------------Input size (MB): 0.26
+Forward/backward pass size (MB): 96.93
+Params size (MB): 527.79
+Estimated Total Size (MB): 624.98
+----------------------------------------------------------------
+
+在深度神經網路中，不同層的參數量（parameter count）差異極大。有些層雖然數量少但計算量大，
+有些則相反。了解參數分佈情形，有助於模型壓縮與遷移學習設計。請問在 VGG16 中，下列何者的
+參數量最多？
+單選：
+a. (A)卷積層(Conv2d)
+b. (B)全連接層(Linear)
+c. (C)ReLU 激活函數
+d. (D)池化層(MaxPool2d, AdaptiveAvgPool2d)</code></pre>
+<h2 id="選項快速判斷">選項快速判斷</h2>
+<h3 id="a-錯卷積層conv2d">A 錯：卷積層(Conv2d)</h3>
+<p>它沒有直接解決本題核心：VGG16 參數量主要集中在全連接層，尤其
+Linear-33 參數量超過一億。</p>
+<h3 id="b-對全連接層linear">B 對：全連接層(Linear)</h3>
+<p>正確：根據表格，第一個全連接層（Linear-33）的參數量高達
+102,764,544，佔總參數量 （約 1.38 億）的絕大部分（約
+74%）。卷積層的參數相對較少。</p>
+<h3 id="c-錯relu-激活函數">C 錯：ReLU 激活函數</h3>
+<p>它沒有直接解決本題核心：VGG16 參數量主要集中在全連接層，尤其
+Linear-33 參數量超過一億。</p>
+<h3 id="d-錯池化層maxpool2d-adaptiveavgpool2">D 錯：池化層(MaxPool2d,
+AdaptiveAvgPool2…</h3>
+<p>它沒有直接解決本題核心：VGG16 參數量主要集中在全連接層，尤其
+Linear-33 參數量超過一億。</p>
+<h2 id="考場秒殺法">考場秒殺法</h2>
+<p><strong>VGG16「參數最多看 FC，不是看卷積」。</strong></p>
+<h2 id="來源解析整理">來源解析整理</h2>
+<pre class="text"><code>(B) 正確：根據表格，第一個全連接層（Linear-33）的參數量高達 102,764,544，佔總參數量
+（約 1.38 億）的絕大部分（約 74%）。卷積層的參數相對較少。
+正確答案：(B)全連接層(Linear)</code></pre>
+
+      </article>
+    </section>
+  </main>
+</body>
+</html>
